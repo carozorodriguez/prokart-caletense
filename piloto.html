@@ -55,23 +55,6 @@
       margin-top:20px;
     }
 
-    table{
-      width:100%;
-      border-collapse:collapse;
-      margin-top:15px;
-    }
-
-    th, td{
-      padding:10px;
-      border-bottom:1px solid #ddd;
-      text-align:left;
-    }
-
-    th{
-      background:#111;
-      color:#fff;
-    }
-
     .dato{
       font-size:1.2em;
     }
@@ -97,8 +80,8 @@
 
 <section>
   <div class="card">
-
     <h2>Datos del Campeonato</h2>
+
     <div class="grid">
       <div class="dato">
         Puntos Totales: <strong id="puntos">0</strong>
@@ -108,18 +91,6 @@
       </div>
     </div>
 
-    <h2 style="margin-top:40px">Historial por Fechas</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>Puesto</th>
-          <th>Puntos</th>
-        </tr>
-      </thead>
-      <tbody id="historial"></tbody>
-    </table>
-
     <div class="qr">
       <h3>QR del Piloto</h3>
       <img id="qr" alt="QR del piloto">
@@ -128,24 +99,23 @@
     <p style="margin-top:30px">
       <a href="index.html">← Volver al campeonato</a>
     </p>
-
   </div>
 </section>
 
 <script>
 /* ===============================
-   PARÁMETROS URL
+   LECTURA DE PARÁMETROS URL
 ================================ */
 const params = new URLSearchParams(window.location.search);
 const piloto = params.get('piloto');
 const categoria = params.get('categoria');
 
 if (!piloto || !categoria) {
-  alert('Piloto o categoría no especificados');
+  alert('Piloto o categoría no especificados en la URL');
 }
 
 /* ===============================
-   CSV POR CATEGORÍA
+   GOOGLE SHEETS POR CATEGORÍA
 ================================ */
 const categorias = {
   "PRE JUNIOR":
@@ -153,9 +123,74 @@ const categorias = {
 };
 
 /* ===============================
-   ELEMENTOS
+   ELEMENTOS DOM
 ================================ */
 const nombrePiloto = document.getElementById('nombrePiloto');
 const categoriaPiloto = document.getElementById('categoriaPiloto');
 const puntosEl = document.getElementById('puntos');
-const posicionEl = docum
+const posicionEl = document.getElementById('posicion');
+const fotoPiloto = document.getElementById('fotoPiloto');
+const qr = document.getElementById('qr');
+
+/* ===============================
+   DATOS BÁSICOS
+================================ */
+nombrePiloto.textContent = piloto;
+categoriaPiloto.textContent = categoria;
+
+/* ===============================
+   FOTO AUTOMÁTICA
+================================ */
+fotoPiloto.src = `pilotos/${piloto.replace(/ /g,'_')}.jpg`;
+fotoPiloto.onerror = () => {
+  fotoPiloto.src = 'pilotos/default.jpg';
+};
+
+/* ===============================
+   QR DEL PILOTO
+================================ */
+qr.src =
+  "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+  encodeURIComponent(window.location.href);
+
+/* ===============================
+   CARGA Y CÁLCULO DEL CAMPEONATO
+================================ */
+fetch(categorias[categoria])
+  .then(r => {
+    if (!r.ok) throw new Error('No se pudo acceder al CSV');
+    return r.text();
+  })
+  .then(text => {
+    const filas = text.replace(/\r/g,'').trim().split('\n').slice(1);
+
+    const datos = filas
+      .map(f => f.split(','))
+      .filter(c => c.length >= 4)
+      .map(c => ({
+        piloto: c[1].trim(),
+        puntos: Number(c[3]) || 0
+      }));
+
+    const mapa = {};
+    datos.forEach(d => {
+      mapa[d.piloto] = (mapa[d.piloto] || 0) + d.puntos;
+    });
+
+    puntosEl.textContent = mapa[piloto] || 0;
+
+    const ranking = Object.entries(mapa)
+      .sort((a,b) => b[1] - a[1]);
+
+    const pos = ranking.findIndex(r => r[0] === piloto);
+    posicionEl.textContent = pos >= 0 ? (pos + 1) + "°" : "-";
+  })
+  .catch(err => {
+    console.error(err);
+    alert('Error cargando datos del campeonato');
+  });
+</script>
+
+</body>
+</html>
+
