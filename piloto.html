@@ -55,6 +55,23 @@
       margin-top:20px;
     }
 
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:15px;
+    }
+
+    th, td{
+      padding:10px;
+      border-bottom:1px solid #ddd;
+      text-align:left;
+    }
+
+    th{
+      background:#111;
+      color:#fff;
+    }
+
     .dato{
       font-size:1.2em;
     }
@@ -80,8 +97,8 @@
 
 <section>
   <div class="card">
-    <h2>Datos del Campeonato</h2>
 
+    <h2>Datos del Campeonato</h2>
     <div class="grid">
       <div class="dato">
         Puntos Totales: <strong id="puntos">0</strong>
@@ -91,9 +108,54 @@
       </div>
     </div>
 
+    <h2 style="margin-top:40px">Historial por Fechas</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Puesto</th>
+          <th>Puntos</th>
+        </tr>
+      </thead>
+      <tbody id="historial"></tbody>
+    </table>
+
     <div class="qr">
       <h3>QR del Piloto</h3>
       <img id="qr" alt="QR del piloto">
     </div>
 
     <p style="margin-top:30px">
+      <a href="index.html">← Volver al campeonato</a>
+    </p>
+
+  </div>
+</section>
+
+<script>
+/* ===============================
+   PARÁMETROS URL
+================================ */
+const params = new URLSearchParams(window.location.search);
+const piloto = params.get('piloto');
+const categoria = params.get('categoria');
+
+if (!piloto || !categoria) {
+  alert('Piloto o categoría no especificados');
+}
+
+/* ===============================
+   CSV POR CATEGORÍA
+================================ */
+const categorias = {
+  "PRE JUNIOR":
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?output=csv"
+};
+
+/* ===============================
+   ELEMENTOS
+================================ */
+const nombrePiloto = document.getElementById('nombrePiloto');
+const categoriaPiloto = document.getElementById('categoriaPiloto');
+const puntosEl = document.getElementById('puntos');
+const posicionEl = docum
