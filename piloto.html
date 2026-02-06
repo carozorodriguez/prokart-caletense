@@ -6,73 +6,33 @@
 <title>Ficha del Piloto | PROKART CALETENSE</title>
 
 <!-- ===============================
-     ESTILOS
+     ESTILOS GENERALES
 ================================ -->
 <style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#f4f4f4;
-}
-
-header{
-  background:#111;
-  color:#fff;
-  text-align:center;
-  padding:40px 20px;
-}
-
-section{
-  max-width:1000px;
-  margin:auto;
-  padding:40px 20px;
-}
+:root { --rojo:#e10600; --negro:#111; --gris:#f4f4f4; }
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--gris)}
+header{background:#111;color:#fff;padding:40px 20px;text-align:center}
+section{max-width:1000px;margin:auto;padding:40px 20px}
 
 /* ===============================
    BLOQUE PILOTO
 ================================ */
-.piloto{
-  display:grid;
-  grid-template-columns:240px 1fr;
-  gap:30px;
-  background:#fff;
-  padding:30px;
-  border-radius:12px;
-}
+.piloto{display:grid;grid-template-columns:220px 1fr;gap:30px;background:#fff;padding:30px;border-radius:12px}
+.piloto img.foto{width:220px;height:220px;border-radius:50%;object-fit:cover}
 
-/* FOTO */
-.piloto img.foto{
-  width:220px;
-  height:220px;
-  border-radius:50%;
-  object-fit:cover;
-  display:block;
-  margin:auto;
-}
+/* ===============================
+   QR
+================================ */
+.qr{text-align:center;margin-top:15px}
+.qr img{width:120px}
 
-/* QR */
-.qr{
-  text-align:center;
-  margin-top:15px;
-}
-.qr img{
-  width:130px;
-}
-
-/* TABLAS */
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:25px;
-}
-th,td{
-  padding:12px;
-  border-bottom:1px solid #ddd;
-}
-th{
-  background:#111;
-  color:#fff;
-}
+/* ===============================
+   TABLAS
+================================ */
+table{width:100%;border-collapse:collapse;margin-top:30px}
+th,td{padding:12px;border-bottom:1px solid #ddd}
+th{background:#111;color:#fff}
 </style>
 </head>
 
@@ -82,26 +42,23 @@ th{
      HEADER
 ================================ -->
 <header>
-  <h1 id="nombrePiloto">Piloto</h1>
+  <h1 id="nombrePiloto"></h1>
   <p id="categoriaPiloto"></p>
 </header>
 
 <!-- ===============================
-     CONTENIDO
+     CONTENIDO PRINCIPAL
 ================================ -->
 <section>
 
-  <!-- ===============================
-       DATOS PRINCIPALES
-  ================================ -->
+  <!-- ===== BLOQUE DATOS PILOTO ===== -->
   <div class="piloto">
 
     <!-- FOTO + QR -->
     <div>
-      <img id="fotoPiloto" class="foto" alt="Foto del Piloto">
-
+      <img id="fotoPiloto" class="foto" alt="Foto Piloto">
       <div class="qr">
-        <img id="qrPiloto" alt="QR Ficha Piloto">
+        <img id="qrPiloto" alt="QR Piloto">
         <p>Escanear ficha</p>
       </div>
     </div>
@@ -116,17 +73,11 @@ th{
 
   </div>
 
-  <!-- ===============================
-       HISTORIAL POR FECHA
-  ================================ -->
-  <h2>Historial de Carreras</h2>
+  <!-- ===== HISTORIAL ===== -->
+  <h2>Historial por Fecha</h2>
   <table>
     <thead>
-      <tr>
-        <th>Fecha</th>
-        <th>Puesto</th>
-        <th>Puntos</th>
-      </tr>
+      <tr><th>Fecha</th><th>Puesto</th><th>Puntos</th></tr>
     </thead>
     <tbody id="historial"></tbody>
   </table>
@@ -137,9 +88,9 @@ th{
      SCRIPT
 ================================ -->
 <script>
-/* ===============================
-   1️⃣ GOOGLE SHEETS POR CATEGORÍA
-================================ */
+/* =========================================================
+   1️⃣ CONFIGURACIÓN DE CATEGORÍAS (EDITÁS SOLO ESTO)
+========================================================= */
 const CATEGORIAS={
   "PRE JUNIOR":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=0&single=true&output=csv",
   "JUNIOR":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=1173158505&single=true&output=csv",
@@ -148,72 +99,63 @@ const CATEGORIAS={
   "200 STD":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=660182728&single=true&output=csv"
 };
 
-/* ===============================
+/* =========================================================
    2️⃣ PARÁMETROS URL
-================================ */
+========================================================= */
 const params=new URLSearchParams(window.location.search);
-const piloto=params.get("piloto");
-const categoria=params.get("categoria");
+const piloto=params.get('piloto');
+const categoria=params.get('categoria');
 
-if(!piloto || !categoria || !CATEGORIAS[categoria]){
-  alert("Ficha inválida");
-  throw new Error("Parámetros incorrectos");
+if(!piloto||!categoria||!CATEGORIAS[categoria]){
+  alert('Ficha de piloto inválida');
+  throw new Error('Parámetros inválidos');
 }
 
-/* ===============================
-   3️⃣ DATOS FIJOS
-================================ */
-document.getElementById("nombrePiloto").textContent=piloto;
-document.getElementById("categoriaPiloto").textContent=categoria;
+/* =========================================================
+   3️⃣ UI BÁSICA
+========================================================= */
+document.getElementById('nombrePiloto').textContent=piloto;
+document.getElementById('categoriaPiloto').textContent=categoria;
 
-/* FOTO */
-const foto=document.getElementById("fotoPiloto");
-foto.src=`pilotos/${piloto.replaceAll(" ","_")}.jpg`;
-foto.onerror=()=>foto.src="pilotos/default.jpg";
+const foto=document.getElementById('fotoPiloto');
+foto.src=`pilotos/${piloto.replaceAll(' ','_')}.jpg`;
+foto.onerror=()=>foto.src='pilotos/default.jpg';
 
-/* QR (LINK A ESTA FICHA) */
 const urlFicha=window.location.href;
-document.getElementById("qrPiloto").src=
+document.getElementById('qrPiloto').src=
   `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(urlFicha)}`;
 
-/* ===============================
+/* =========================================================
    4️⃣ CARGA DE DATOS
-================================ */
+========================================================= */
 fetch(CATEGORIAS[categoria])
   .then(r=>r.text())
-  .then(text=>procesarDatos(text));
+  .then(text=>procesarCSV(text))
+  .catch(()=>alert('Error cargando datos del piloto'));
 
-function procesarDatos(text){
-  const filas=text.trim().split("\n").slice(1);
-  const historial=document.getElementById("historial");
+/* =========================================================
+   5️⃣ PROCESAMIENTO
+========================================================= */
+function procesarCSV(text){
+  const filas=text.trim().split('\n').slice(1);
+  const datos=filas.map(f=>{
+    const c=f.split(',').map(v=>v.replace(/"/g,'').trim());
+    return {fecha:c[0],piloto:c[1],puesto:+c[2],puntos:+c[3]};
+  }).filter(d=>d.piloto===piloto);
 
-  let total=0;
-  let mejor=null;
-  let fechas=0;
+  let total=0;let mejor=999;
+  const body=document.getElementById('historial');
+  body.innerHTML='';
 
-  filas.forEach(f=>{
-    const c=f.split(",").map(v=>v.replace(/"/g,""));
-    if(c[1]!==piloto) return;
-
-    const fecha=c[0];
-    const puesto=+c[2];
-    const puntos=+c[3];
-
-    total+=puntos;
-    fechas++;
-    if(mejor===null || puesto<mejor) mejor=puesto;
-
-    historial.innerHTML+=`
-      <tr>
-        <td>${fecha}</td>
-        <td>${puesto}</td>
-        <td>${puntos}</td>
-      </tr>`;
+  datos.forEach(d=>{
+    total+=d.puntos;
+    if(d.puesto>0&&d.puesto<mejor)mejor=d.puesto;
+    body.innerHTML+=`<tr><td>${d.fecha}</td><td>${d.puesto}</td><td>${d.puntos}</td></tr>`;
   });
 
-  document.getElementById("totalPuntos").textContent=total;
-  document.getElementById("mejorResultado").textContent=mejor ?? "-";
-  document.getElementById("cantidadFechas").textContent=fechas;
+  document.getElementById('totalPuntos').textContent=total;
+  document.getElementById('mejorResultado').textContent=mejor===999?'-':mejor;
+  document.getElementById('cantidadFechas').textContent=datos.length;
 }
 </script>
 
