@@ -1,228 +1,88 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PROKART CALETENSE | Campeonato Oficial</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROKART CALETENSE | Campeonato Oficial</title>
 
-  <!-- ===============================
-       FUENTES
-  ================================ -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
 
-  <!-- ===============================
-       ESTILOS
-  ================================ -->
-  <style>
-    :root {
-      --rojo: #e10600;
-      --negro: #111;
-      --gris: #f4f4f4;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: 'Oswald', Arial, sans-serif;
-      background: var(--gris);
-      color: #222;
-    }
-
-    header {
-      background: #000;
-      color: #fff;
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    header img {
-      max-width: 320px;
-      width: 90%;
-      margin-bottom: 20px;
-    }
-
-    nav {
-      position: sticky;
-      top: 0;
-      background: var(--negro);
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      padding: 15px;
-      z-index: 10;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: 1px;
-    }
-
-    nav a:hover { color: var(--rojo); }
-
-    section {
-      padding: 60px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    h2 {
-      border-left: 6px solid var(--rojo);
-      padding-left: 15px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .card {
-      background: #fff;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,.1);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    th, td {
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-    }
-
-    th {
-      background: var(--negro);
-      color: #fff;
-    }
-
-    button {
-      background: var(--rojo);
-      color: #fff;
-      border: none;
-      padding: 14px;
-      width: 100%;
-      cursor: pointer;
-      border-radius: 6px;
-    }
-
-    footer {
-      background: var(--negro);
-      color: #fff;
-      text-align: center;
-      padding: 30px;
-      margin-top: 60px;
-    }
-  </style>
+<style>
+:root { --rojo:#e10600; --negro:#111; --gris:#f4f4f4; }
+*{box-sizing:border-box}
+body{margin:0;font-family:'Oswald',Arial;background:var(--gris)}
+header{background:#000;color:#fff;text-align:center;padding:60px 20px}
+header img{max-width:320px;width:90%}
+nav{position:sticky;top:0;background:var(--negro);display:flex;justify-content:center;gap:25px;padding:15px}
+nav a{color:#fff;text-decoration:none}
+nav a:hover{color:var(--rojo)}
+section{max-width:1100px;margin:auto;padding:60px 20px}
+h2{border-left:6px solid var(--rojo);padding-left:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.card{background:#fff;padding:25px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+table{width:100%;border-collapse:collapse;margin-top:20px}
+th,td{padding:12px;border-bottom:1px solid #ddd}
+th{background:var(--negro);color:#fff}
+footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-top:60px}
+</style>
 </head>
 
 <body>
 
-<!-- ===============================
-     HEADER
-================================ -->
 <header>
-  <img src="ProKart.jpg" alt="PROKART CALETENSE">
+  <img src="ProKart.jpg">
   <h1>PROKART CALETENSE</h1>
   <p>Temporada Oficial 2026</p>
 </header>
 
-<!-- ===============================
-     NAV
-================================ -->
 <nav>
   <a href="#categorias">Categorías</a>
-  <a href="#fechas">Fechas</a>
   <a href="#posiciones">Resultados</a>
 </nav>
 
 <!-- ===============================
-     CATEGORÍAS
+     CATEGORÍAS + RANKING
 ================================ -->
 <section id="categorias">
-  <h2>Categorías</h2>
+<h2>Categorías</h2>
 
-  <!-- 🔁 Cada card se completa automáticamente -->
-  <div class="card">
-    <h3>PRE JUNIOR</h3>
-    <h4>Pilotos Rankeados</h4>
-    <div class="grid"></div>
-  </div>
+<div class="card"><h3>PRE JUNIOR</h3><div class="grid"></div></div>
+<div class="card"><h3>JUNIOR</h3><div class="grid"></div></div>
+<div class="card"><h3>110 Cajeros</h3><div class="grid"></div></div>
+<div class="card"><h3>200 Master</h3><div class="grid"></div></div>
+<div class="card"><h3>200 STD</h3><div class="grid"></div></div>
 
-  <div class="card">
-    <h3>JUNIOR</h3>
-    <h4>Pilotos Rankeados</h4>
-    <div class="grid"></div>
-  </div>
-
-  <div class="card">
-    <h3>110 Cajeros</h3>
-    <h4>Pilotos Rankeados</h4>
-    <div class="grid"></div>
-  </div>
-
-  <div class="card">
-    <h3>200 Master</h3>
-    <h4>Pilotos Rankeados</h4>
-    <div class="grid"></div>
-  </div>
-
-  <div class="card">
-    <h3>200 STD</h3>
-    <h4>Pilotos Rankeados</h4>
-    <div class="grid"></div>
-  </div>
 </section>
 
 <!-- ===============================
      RESULTADOS
 ================================ -->
 <section id="posiciones">
-  <h2>Resultados y Posiciones</h2>
+<h2>Resultados</h2>
 
-  <label>Categoría</label>
-  <select id="categoriaSelect"></select>
+<select id="categoriaSelect"></select>
+<select id="fechaSelect"></select>
 
-  <label>Fecha</label>
-  <select id="fechaSelect"></select>
+<table id="tablaResultados">
+<thead><tr><th>Puesto</th><th>Piloto</th><th>Puntos</th></tr></thead>
+<tbody></tbody>
+</table>
 
-  <h3>Resultados por Fecha</h3>
-  <table id="tablaResultados">
-    <thead>
-      <tr><th>Puesto</th><th>Piloto</th><th>Puntos</th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-
-  <h3>Tabla General</h3>
-  <table id="tablaGeneral">
-    <thead>
-      <tr><th>Pos</th><th>Piloto</th><th>Total</th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+<table id="tablaGeneral">
+<thead><tr><th>Pos</th><th>Piloto</th><th>Total</th></tr></thead>
+<tbody></tbody>
+</table>
 </section>
 
-<footer>
-  © 2026 PROKART CALETENSE
-</footer>
+<footer>© 2026 PROKART CALETENSE</footer>
 
-<!-- ===============================
-     SCRIPT
-================================ -->
 <script>
 /* ===============================
-   CONFIGURACIÓN SHEETS
+   CONFIGURACIÓN GOOGLE SHEETS
 ================================ */
-const categorias = {
+const CATEGORIAS = {
   "PRE JUNIOR": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=0&single=true&output=csv",
   "JUNIOR": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=1173158505&single=true&output=csv",
   "110 Cajeros": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=796482582&single=true&output=csv",
@@ -230,93 +90,96 @@ const categorias = {
   "200 STD": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=660182728&single=true&output=csv"
 };
 
-let datos = [];
-
-const categoriaSelect = document.getElementById('categoriaSelect');
-const fechaSelect = document.getElementById('fechaSelect');
-
 /* ===============================
-   INIT
+   RANKING POR CATEGORÍA
 ================================ */
-Object.keys(categorias).forEach(c => {
-  const o = document.createElement('option');
-  o.value = c;
-  o.textContent = c;
-  categoriaSelect.appendChild(o);
-});
+Object.keys(CATEGORIAS).forEach(categoria => cargarRankingCategoria(categoria));
 
-categoriaSelect.addEventListener('change', cargarCategoria);
-fechaSelect.addEventListener('change', filtrarFecha);
-
-cargarCategoria();
-
-/* ===============================
-   FUNCIONES
-================================ */
-function cargarCategoria() {
-  fetch(categorias[categoriaSelect.value])
-    .then(r => r.text())
-    .then(text => {
-      const filas = text.trim().split('\n').slice(1);
-      datos = filas.map(f => {
-        const c = f.split(',').map(v => v.replace(/"/g,''));
-        return { fecha:c[0], piloto:c[1], puesto:+c[2], puntos:+c[3] };
+function cargarRankingCategoria(categoria){
+  fetch(CATEGORIAS[categoria])
+    .then(r=>r.text())
+    .then(text=>{
+      const filas=text.trim().split('\n').slice(1);
+      const datos=filas.map(f=>{
+        const c=f.split(',').map(v=>v.replace(/"/g,''));
+        return {piloto:c[1],puntos:+c[3]||0};
       });
-      cargarFechas();
-      cargarGeneral();
-      cargarPilotosRankeados(categoriaSelect.value);
+
+      const ranking={};
+      datos.forEach(d=>ranking[d.piloto]=(ranking[d.piloto]||0)+d.puntos);
+
+      const card=[...document.querySelectorAll('#categorias .card')]
+        .find(c=>c.querySelector('h3').textContent===categoria);
+
+      const grid=card.querySelector('.grid');
+      grid.innerHTML='';
+
+      Object.entries(ranking).sort((a,b)=>b[1]-a[1]).forEach(([p,pts],i)=>{
+        grid.innerHTML+=`
+        <div class="card">
+          <img src="pilotos/${p.replaceAll(' ','_')}.jpg"
+               onerror="this.src='pilotos/default.jpg'"
+               style="width:100%;border-radius:8px">
+          <p><strong>#${i+1} ${p}</strong><br>${pts} pts</p>
+          <a href="piloto.html?piloto=${encodeURIComponent(p)}&categoria=${encodeURIComponent(categoria)}">Ver ficha</a>
+        </div>`;
+      });
     });
 }
 
-function cargarFechas() {
-  fechaSelect.innerHTML = '';
-  [...new Set(datos.map(d => d.fecha))].forEach(f => {
-    const o = document.createElement('option');
-    o.textContent = f;
-    fechaSelect.appendChild(o);
+/* ===============================
+   RESULTADOS (SELECT)
+================================ */
+const categoriaSelect=document.getElementById('categoriaSelect');
+const fechaSelect=document.getElementById('fechaSelect');
+let datos=[];
+
+Object.keys(CATEGORIAS).forEach(c=>{
+  const o=document.createElement('option');
+  o.value=c;o.textContent=c;
+  categoriaSelect.appendChild(o);
+});
+
+categoriaSelect.addEventListener('change',cargarResultados);
+fechaSelect.addEventListener('change',filtrarFecha);
+cargarResultados();
+
+function cargarResultados(){
+  fetch(CATEGORIAS[categoriaSelect.value])
+    .then(r=>r.text())
+    .then(text=>{
+      const filas=text.trim().split('\n').slice(1);
+      datos=filas.map(f=>{
+        const c=f.split(',').map(v=>v.replace(/"/g,''));
+        return {fecha:c[0],piloto:c[1],puesto:+c[2],puntos:+c[3]};
+      });
+      cargarFechas(); cargarGeneral();
+    });
+}
+
+function cargarFechas(){
+  fechaSelect.innerHTML='';
+  [...new Set(datos.map(d=>d.fecha))].forEach(f=>{
+    const o=document.createElement('option');
+    o.textContent=f;fechaSelect.appendChild(o);
   });
   filtrarFecha();
 }
 
-function filtrarFecha() {
-  const body = document.querySelector('#tablaResultados tbody');
-  body.innerHTML = '';
-  datos.filter(d => d.fecha === fechaSelect.value)
-    .forEach(d => {
-      body.innerHTML += `<tr><td>${d.puesto}</td><td>${d.piloto}</td><td>${d.puntos}</td></tr>`;
-    });
+function filtrarFecha(){
+  const tb=document.querySelector('#tablaResultados tbody');
+  tb.innerHTML='';
+  datos.filter(d=>d.fecha===fechaSelect.value)
+    .forEach(d=>tb.innerHTML+=`<tr><td>${d.puesto}</td><td>${d.piloto}</td><td>${d.puntos}</td></tr>`);
 }
 
-function cargarGeneral() {
-  const body = document.querySelector('#tablaGeneral tbody');
-  body.innerHTML = '';
-  const map = {};
-  datos.forEach(d => map[d.piloto]=(map[d.piloto]||0)+d.puntos);
-  Object.entries(map).sort((a,b)=>b[1]-a[1]).forEach((p,i)=>{
-    body.innerHTML += `<tr><td>${i+1}</td><td>${p[0]}</td><td>${p[1]}</td></tr>`;
-  });
-}
-
-function cargarPilotosRankeados(categoria) {
-  const card = [...document.querySelectorAll('#categorias .card')]
-    .find(c => c.querySelector('h3').textContent === categoria);
-  const grid = card.querySelector('.grid');
-  grid.innerHTML = '';
-
-  const ranking = {};
-  datos.forEach(d => ranking[d.piloto]=(ranking[d.piloto]||0)+d.puntos);
-
-  Object.entries(ranking).sort((a,b)=>b[1]-a[1]).forEach(([p,pts],i)=>{
-    grid.innerHTML += `
-      <div class="card">
-        <img src="pilotos/${p.replaceAll(' ','_')}.jpg"
-             onerror="this.src='pilotos/default.jpg'"
-             style="width:100%;border-radius:8px">
-        <p><strong>#${i+1} ${p}</strong><br>${pts} pts</p>
-        <a href="piloto.html?piloto=${encodeURIComponent(p)}&categoria=${encodeURIComponent(categoria)}">
-          Ver ficha
-        </a>
-      </div>`;
+function cargarGeneral(){
+  const tb=document.querySelector('#tablaGeneral tbody');
+  tb.innerHTML='';
+  const m={};
+  datos.forEach(d=>m[d.piloto]=(m[d.piloto]||0)+d.puntos);
+  Object.entries(m).sort((a,b)=>b[1]-a[1]).forEach((p,i)=>{
+    tb.innerHTML+=`<tr><td>${i+1}</td><td>${p[0]}</td><td>${p[1]}</td></tr>`;
   });
 }
 </script>
