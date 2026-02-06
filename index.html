@@ -28,24 +28,8 @@ section{max-width:1100px;margin:auto;padding:60px 20px}
 h2{border-left:6px solid var(--rojo);padding-left:15px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
 .card{background:#fff;padding:25px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.1)}
-
-/* ===============================
-   BOTONES (IMPORTANTE PARA LINKS)
-================================ */
-.btn{
-  display:inline-block;
-  margin:10px 0 20px;
-  padding:12px 18px;
-  background:var(--rojo);
-  color:#fff;
-  text-decoration:none;
-  border-radius:6px;
-}
+.btn{display:inline-block;margin:10px 0 20px;padding:12px 18px;background:var(--rojo);color:#fff;text-decoration:none;border-radius:6px}
 .btn:hover{opacity:.85}
-
-/* ===============================
-   TABLAS
-================================ */
 table{width:100%;border-collapse:collapse;margin-top:20px}
 th,td{padding:12px;border-bottom:1px solid #ddd}
 th{background:var(--negro);color:#fff}
@@ -69,33 +53,27 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
 ================================ -->
 <nav>
   <a href="#categorias">Categorías</a>
+  <a href="#fechas">Fechas</a>
   <a href="#posiciones">Resultados</a>
   <a href="#inscripcion">Inscripciones</a>
 </nav>
 
 <!-- ===============================
-     CATEGORÍAS + RANKING + REGLAMENTOS
+     CATEGORÍAS + RANKING
 ================================ -->
 <section id="categorias">
   <h2>Categorías</h2>
 
-  <!-- ===============================
-       PRE JUNIOR
-  ================================ -->
+  <!-- PRE JUNIOR -->
   <div class="card">
     <h3>PRE JUNIOR</h3>
     <p><strong>Reglamento:</strong> Categoría formativa destinada a pilotos en etapa inicial.</p>
-
-    <!-- BOTÓN REGLAMENTO (FUNCIONA EN GITHUB PAGES) -->
     <a class="btn" href="reglamentos/Reglamento_PRE_JUNIOR.pdf" target="_blank">Descargar Reglamento PDF</a>
-
     <h4>Pilotos Rankeados</h4>
     <div class="grid"></div>
   </div>
 
-  <!-- ===============================
-       JUNIOR
-  ================================ -->
+  <!-- JUNIOR -->
   <div class="card">
     <h3>JUNIOR</h3>
     <p><strong>Reglamento:</strong> Categoría juvenil competitiva.</p>
@@ -104,9 +82,7 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
     <div class="grid"></div>
   </div>
 
-  <!-- ===============================
-       110 CAJEROS
-  ================================ -->
+  <!-- 110 CAJEROS -->
   <div class="card">
     <h3>110 Cajeros</h3>
     <p><strong>Reglamento:</strong> Motores 110cc – preparación controlada.</p>
@@ -115,9 +91,7 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
     <div class="grid"></div>
   </div>
 
-  <!-- ===============================
-       200 MASTER
-  ================================ -->
+  <!-- 200 MASTER -->
   <div class="card">
     <h3>200 Master</h3>
     <p><strong>Reglamento:</strong> Categoría para pilotos experimentados.</p>
@@ -126,9 +100,7 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
     <div class="grid"></div>
   </div>
 
-  <!-- ===============================
-       200 STD
-  ================================ -->
+  <!-- 200 STD -->
   <div class="card">
     <h3>200 STD</h3>
     <p><strong>Reglamento:</strong> Categoría estándar – igualdad mecánica.</p>
@@ -139,22 +111,39 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
 </section>
 
 <!-- ===============================
+     FECHAS DEL CAMPEONATO
+================================ -->
+<section id="fechas">
+  <h2>Calendario 2026</h2>
+  <div class="grid">
+    <div class="card">Fecha 1 – Caleta Olivia</div>
+    <div class="card">Fecha 2 – Pico Truncado</div>
+    <div class="card">Fecha 3 – Las Heras</div>
+    <div class="card">Fecha 4 – Puerto Deseado</div>
+    <div class="card">Fecha 5 – Caleta Olivia</div>
+    <div class="card">Fecha 6 – Las Heras</div>
+    <div class="card">Fecha 7 – Caleta Olivia</div>
+    <div class="card">Fecha 8 – Las Heras</div>
+  </div>
+</section>
+
+<!-- ===============================
      RESULTADOS
 ================================ -->
 <section id="posiciones">
-<h2>Resultados</h2>
-<select id="categoriaSelect"></select>
-<select id="fechaSelect"></select>
+  <h2>Resultados</h2>
+  <select id="categoriaSelect"></select>
+  <select id="fechaSelect"></select>
 
-<table id="tablaResultados">
-<thead><tr><th>Puesto</th><th>Piloto</th><th>Puntos</th></tr></thead>
-<tbody></tbody>
-</table>
+  <table id="tablaResultados">
+    <thead><tr><th>Puesto</th><th>Piloto</th><th>Puntos</th></tr></thead>
+    <tbody></tbody>
+  </table>
 
-<table id="tablaGeneral">
-<thead><tr><th>Pos</th><th>Piloto</th><th>Total</th></tr></thead>
-<tbody></tbody>
-</table>
+  <table id="tablaGeneral">
+    <thead><tr><th>Pos</th><th>Piloto</th><th>Total</th></tr></thead>
+    <tbody></tbody>
+  </table>
 </section>
 
 <!-- ===============================
@@ -174,9 +163,6 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
      SCRIPT (RANKING + RESULTADOS)
 ================================ -->
 <script>
-/* ===============================
-   CONFIGURACIÓN GOOGLE SHEETS
-================================ */
 const CATEGORIAS={
   "PRE JUNIOR":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=0&single=true&output=csv",
   "JUNIOR":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=1173158505&single=true&output=csv",
@@ -199,23 +185,14 @@ function cargarRankingCategoria(categoria){
         const c=f.split(',').map(v=>v.replace(/"/g,''));
         return {piloto:c[1],puntos:+c[3]||0};
       });
-
       const ranking={};
       datos.forEach(d=>ranking[d.piloto]=(ranking[d.piloto]||0)+d.puntos);
-
       const card=[...document.querySelectorAll('#categorias .card')]
         .find(c=>c.querySelector('h3').textContent===categoria);
-
       const grid=card.querySelector('.grid');
       grid.innerHTML='';
-
       Object.entries(ranking).sort((a,b)=>b[1]-a[1]).forEach(([p,pts],i)=>{
-        grid.innerHTML+=`
-        <div class="card">
-          <img src="pilotos/${p.replaceAll(' ','_')}.jpg" onerror="this.src='pilotos/default.jpg'" style="width:100%;border-radius:8px">
-          <p><strong>#${i+1} ${p}</strong><br>${pts} pts</p>
-          <a href="piloto.html?piloto=${encodeURIComponent(p)}&categoria=${encodeURIComponent(categoria)}">Ver ficha</a>
-        </div>`;
+        grid.innerHTML+=`<div class="card"><img src="pilotos/${p.replaceAll(' ','_')}.jpg" onerror="this.src='pilotos/default.jpg'" style="width:100%;border-radius:8px"><p><strong>#${i+1} ${p}</strong><br>${pts} pts</p><a href="piloto.html?piloto=${encodeURIComponent(p)}&categoria=${encodeURIComponent(categoria)}">Ver ficha</a></div>`;
       });
     });
 }
@@ -226,13 +203,9 @@ function cargarRankingCategoria(categoria){
 const categoriaSelect=document.getElementById('categoriaSelect');
 const fechaSelect=document.getElementById('fechaSelect');
 let datos=[];
-
 Object.keys(CATEGORIAS).forEach(c=>{
-  const o=document.createElement('option');
-  o.value=c;o.textContent=c;
-  categoriaSelect.appendChild(o);
+  const o=document.createElement('option');o.value=c;o.textContent=c;categoriaSelect.appendChild(o);
 });
-
 categoriaSelect.addEventListener('change',cargarResultados);
 fechaSelect.addEventListener('change',filtrarFecha);
 cargarResultados();
@@ -242,40 +215,24 @@ function cargarResultados(){
     .then(r=>r.text())
     .then(text=>{
       const filas=text.trim().split('\n').slice(1);
-      datos=filas.map(f=>{
-        const c=f.split(',').map(v=>v.replace(/"/g,''));
-        return {fecha:c[0],piloto:c[1],puesto:+c[2],puntos:+c[3]};
-      });
-      cargarFechas(); cargarGeneral();
+      datos=filas.map(f=>{const c=f.split(',').map(v=>v.replace(/"/g,''));return {fecha:c[0],piloto:c[1],puesto:+c[2],puntos:+c[3]};});
+      cargarFechas();cargarGeneral();
     });
 }
-
 function cargarFechas(){
   fechaSelect.innerHTML='';
-  [...new Set(datos.map(d=>d.fecha))].forEach(f=>{
-    const o=document.createElement('option');
-    o.textContent=f;fechaSelect.appendChild(o);
-  });
+  [...new Set(datos.map(d=>d.fecha))].forEach(f=>{const o=document.createElement('option');o.textContent=f;fechaSelect.appendChild(o);});
   filtrarFecha();
 }
-
 function filtrarFecha(){
-  const tb=document.querySelector('#tablaResultados tbody');
-  tb.innerHTML='';
-  datos.filter(d=>d.fecha===fechaSelect.value)
-    .forEach(d=>tb.innerHTML+=`<tr><td>${d.puesto}</td><td>${d.piloto}</td><td>${d.puntos}</td></tr>`);
+  const tb=document.querySelector('#tablaResultados tbody');tb.innerHTML='';
+  datos.filter(d=>d.fecha===fechaSelect.value).forEach(d=>tb.innerHTML+=`<tr><td>${d.puesto}</td><td>${d.piloto}</td><td>${d.puntos}</td></tr>`);
 }
-
 function cargarGeneral(){
-  const tb=document.querySelector('#tablaGeneral tbody');
-  tb.innerHTML='';
-  const m={};
-  datos.forEach(d=>m[d.piloto]=(m[d.piloto]||0)+d.puntos);
-  Object.entries(m).sort((a,b)=>b[1]-a[1]).forEach((p,i)=>{
-    tb.innerHTML+=`<tr><td>${i+1}</td><td>${p[0]}</td><td>${p[1]}</td></tr>`;
-  });
+  const tb=document.querySelector('#tablaGeneral tbody');tb.innerHTML='';
+  const m={};datos.forEach(d=>m[d.piloto]=(m[d.piloto]||0)+d.puntos);
+  Object.entries(m).sort((a,b)=>b[1]-a[1]).forEach((p,i)=>tb.innerHTML+=`<tr><td>${i+1}</td><td>${p[0]}</td><td>${p[1]}</td></tr>`);
 }
 </script>
-
 </body>
 </html>
