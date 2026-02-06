@@ -5,23 +5,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PROKART CALETENSE | Campeonato Oficial</title>
 
+<!-- ===============================
+     FUENTES
+================================ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
 
+<!-- ===============================
+     ESTILOS GENERALES
+================================ -->
 <style>
 :root { --rojo:#e10600; --negro:#111; --gris:#f4f4f4; }
 *{box-sizing:border-box}
 body{margin:0;font-family:'Oswald',Arial;background:var(--gris)}
 header{background:#000;color:#fff;text-align:center;padding:60px 20px}
 header img{max-width:320px;width:90%}
-nav{position:sticky;top:0;background:var(--negro);display:flex;justify-content:center;gap:25px;padding:15px}
+nav{position:sticky;top:0;background:var(--negro);display:flex;justify-content:center;gap:25px;padding:15px;z-index:10}
 nav a{color:#fff;text-decoration:none}
 nav a:hover{color:var(--rojo)}
 section{max-width:1100px;margin:auto;padding:60px 20px}
 h2{border-left:6px solid var(--rojo);padding-left:15px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
 .card{background:#fff;padding:25px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+
+/* ===============================
+   BOTONES (IMPORTANTE PARA LINKS)
+================================ */
+.btn{
+  display:inline-block;
+  margin:10px 0 20px;
+  padding:12px 18px;
+  background:var(--rojo);
+  color:#fff;
+  text-decoration:none;
+  border-radius:6px;
+}
+.btn:hover{opacity:.85}
+
+/* ===============================
+   TABLAS
+================================ */
 table{width:100%;border-collapse:collapse;margin-top:20px}
 th,td{padding:12px;border-bottom:1px solid #ddd}
 th{background:var(--negro);color:#fff}
@@ -31,12 +55,18 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
 
 <body>
 
+<!-- ===============================
+     HEADER
+================================ -->
 <header>
-  <img src="ProKart.jpg">
+  <img src="ProKart.jpg" alt="PROKART CALETENSE">
   <h1>PROKART CALETENSE</h1>
   <p>Temporada Oficial 2026</p>
 </header>
 
+<!-- ===============================
+     NAV
+================================ -->
 <nav>
   <a href="#categorias">Categorías</a>
   <a href="#posiciones">Resultados</a>
@@ -44,10 +74,7 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
 </nav>
 
 <!-- ===============================
-     CATEGORÍAS + RANKING
-================================ -->
-<!-- ===============================
-     CATEGORÍAS
+     CATEGORÍAS + RANKING + REGLAMENTOS
 ================================ -->
 <section id="categorias">
   <h2>Categorías</h2>
@@ -57,14 +84,10 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
   ================================ -->
   <div class="card">
     <h3>PRE JUNIOR</h3>
+    <p><strong>Reglamento:</strong> Categoría formativa destinada a pilotos en etapa inicial.</p>
 
-    <p>
-      <strong>Reglamento:</strong> Categoría formativa destinada a pilotos en etapa inicial.
-    </p>
-
-    <a href="reglamentos/Reglamento_PRE_JUNIOR.pdf" target="_blank">
-      <button type="button">Descargar Reglamento PDF</button>
-    </a>
+    <!-- BOTÓN REGLAMENTO (FUNCIONA EN GITHUB PAGES) -->
+    <a class="btn" href="reglamentos/Reglamento_PRE_JUNIOR.pdf" target="_blank">Descargar Reglamento PDF</a>
 
     <h4>Pilotos Rankeados</h4>
     <div class="grid"></div>
@@ -75,15 +98,8 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
   ================================ -->
   <div class="card">
     <h3>JUNIOR</h3>
-
-    <p>
-      <strong>Reglamento:</strong> Categoría juvenil competitiva.
-    </p>
-
-    <a href="reglamentos/Reglamento_JUNIOR.pdf" target="_blank">
-      <button type="button">Descargar Reglamento PDF</button>
-    </a>
-
+    <p><strong>Reglamento:</strong> Categoría juvenil competitiva.</p>
+    <a class="btn" href="reglamentos/Reglamento_JUNIOR.pdf" target="_blank">Descargar Reglamento PDF</a>
     <h4>Pilotos Rankeados</h4>
     <div class="grid"></div>
   </div>
@@ -93,15 +109,8 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
   ================================ -->
   <div class="card">
     <h3>110 Cajeros</h3>
-
-    <p>
-      <strong>Reglamento:</strong> Motores 110cc – preparación controlada.
-    </p>
-
-    <a href="reglamentos/Reglamento_110_Cajeros.pdf" target="_blank">
-      <button type="button">Descargar Reglamento PDF</button>
-    </a>
-
+    <p><strong>Reglamento:</strong> Motores 110cc – preparación controlada.</p>
+    <a class="btn" href="reglamentos/Reglamento_110_Cajeros.pdf" target="_blank">Descargar Reglamento PDF</a>
     <h4>Pilotos Rankeados</h4>
     <div class="grid"></div>
   </div>
@@ -111,15 +120,8 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
   ================================ -->
   <div class="card">
     <h3>200 Master</h3>
-
-    <p>
-      <strong>Reglamento:</strong> Categoría para pilotos experimentados.
-    </p>
-
-    <a href="reglamentos/Reglamento_200_Master.pdf" target="_blank">
-      <button type="button">Descargar Reglamento PDF</button>
-    </a>
-
+    <p><strong>Reglamento:</strong> Categoría para pilotos experimentados.</p>
+    <a class="btn" href="reglamentos/Reglamento_200_Master.pdf" target="_blank">Descargar Reglamento PDF</a>
     <h4>Pilotos Rankeados</h4>
     <div class="grid"></div>
   </div>
@@ -129,15 +131,8 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
   ================================ -->
   <div class="card">
     <h3>200 STD</h3>
-
-    <p>
-      <strong>Reglamento:</strong> Categoría estándar – igualdad mecánica.
-    </p>
-
-    <a href="reglamentos/Reglamento_200_STD.pdf" target="_blank">
-      <button type="button">Descargar Reglamento PDF</button>
-    </a>
-
+    <p><strong>Reglamento:</strong> Categoría estándar – igualdad mecánica.</p>
+    <a class="btn" href="reglamentos/Reglamento_200_STD.pdf" target="_blank">Descargar Reglamento PDF</a>
     <h4>Pilotos Rankeados</h4>
     <div class="grid"></div>
   </div>
@@ -148,7 +143,6 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
 ================================ -->
 <section id="posiciones">
 <h2>Resultados</h2>
-
 <select id="categoriaSelect"></select>
 <select id="fechaSelect"></select>
 
@@ -162,42 +156,39 @@ footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-
 <tbody></tbody>
 </table>
 </section>
+
 <!-- ===============================
      INSCRIPCIONES
 ================================ -->
 <section id="inscripcion">
   <h2>Inscripciones</h2>
-
   <div class="card">
-    <p>
-      Las inscripciones oficiales se realizan mediante el formulario de Google
-      correspondiente a cada fecha del campeonato.
-    </p>
-
-    <a href="https://docs.google.com/forms" target="_blank">
-      <button type="button">Ir al Formulario Oficial</button>
-    </a>
+    <p>Las inscripciones oficiales se realizan mediante el formulario de Google correspondiente a cada fecha.</p>
+    <a class="btn" href="https://docs.google.com/forms" target="_blank">Ir al Formulario Oficial</a>
   </div>
 </section>
 
 <footer>© 2026 PROKART CALETENSE</footer>
 
+<!-- ===============================
+     SCRIPT (RANKING + RESULTADOS)
+================================ -->
 <script>
 /* ===============================
    CONFIGURACIÓN GOOGLE SHEETS
 ================================ */
-const CATEGORIAS = {
-  "PRE JUNIOR": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=0&single=true&output=csv",
-  "JUNIOR": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=1173158505&single=true&output=csv",
-  "110 Cajeros": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=796482582&single=true&output=csv",
-  "200 Master": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=2021979125&single=true&output=csv",
-  "200 STD": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=660182728&single=true&output=csv"
+const CATEGORIAS={
+  "PRE JUNIOR":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=0&single=true&output=csv",
+  "JUNIOR":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=1173158505&single=true&output=csv",
+  "110 Cajeros":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=796482582&single=true&output=csv",
+  "200 Master":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=2021979125&single=true&output=csv",
+  "200 STD":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=660182728&single=true&output=csv"
 };
 
 /* ===============================
    RANKING POR CATEGORÍA
 ================================ */
-Object.keys(CATEGORIAS).forEach(categoria => cargarRankingCategoria(categoria));
+Object.keys(CATEGORIAS).forEach(cat=>cargarRankingCategoria(cat));
 
 function cargarRankingCategoria(categoria){
   fetch(CATEGORIAS[categoria])
@@ -221,9 +212,7 @@ function cargarRankingCategoria(categoria){
       Object.entries(ranking).sort((a,b)=>b[1]-a[1]).forEach(([p,pts],i)=>{
         grid.innerHTML+=`
         <div class="card">
-          <img src="pilotos/${p.replaceAll(' ','_')}.jpg"
-               onerror="this.src='pilotos/default.jpg'"
-               style="width:100%;border-radius:8px">
+          <img src="pilotos/${p.replaceAll(' ','_')}.jpg" onerror="this.src='pilotos/default.jpg'" style="width:100%;border-radius:8px">
           <p><strong>#${i+1} ${p}</strong><br>${pts} pts</p>
           <a href="piloto.html?piloto=${encodeURIComponent(p)}&categoria=${encodeURIComponent(categoria)}">Ver ficha</a>
         </div>`;
@@ -232,7 +221,7 @@ function cargarRankingCategoria(categoria){
 }
 
 /* ===============================
-   RESULTADOS (SELECT)
+   RESULTADOS
 ================================ */
 const categoriaSelect=document.getElementById('categoriaSelect');
 const fechaSelect=document.getElementById('fechaSelect');
