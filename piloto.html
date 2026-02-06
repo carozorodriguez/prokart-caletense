@@ -5,64 +5,141 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ficha del Piloto | PROKART CALETENSE</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
-
+<!-- ===============================
+     ESTILOS
+================================ -->
 <style>
-:root { --rojo:#e10600; --negro:#111; --gris:#f4f4f4; }
-*{box-sizing:border-box}
-body{margin:0;font-family:'Oswald',Arial;background:var(--gris)}
-header{background:#000;color:#fff;text-align:center;padding:40px 20px}
-section{max-width:1000px;margin:auto;padding:40px 20px}
-.card{background:#fff;padding:25px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.1);margin-bottom:30px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-img{max-width:100%;border-radius:10px}
-h2{border-left:6px solid var(--rojo);padding-left:15px}
-table{width:100%;border-collapse:collapse;margin-top:15px}
-th,td{padding:10px;border-bottom:1px solid #ddd}
-th{background:var(--negro);color:#fff}
-.btn{display:inline-block;margin-top:15px;padding:12px 18px;background:var(--rojo);color:#fff;text-decoration:none;border-radius:6px}
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f4f4f4;
+}
+
+header{
+  background:#111;
+  color:#fff;
+  text-align:center;
+  padding:40px 20px;
+}
+
+section{
+  max-width:1000px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+/* ===============================
+   BLOQUE PILOTO
+================================ */
+.piloto{
+  display:grid;
+  grid-template-columns:240px 1fr;
+  gap:30px;
+  background:#fff;
+  padding:30px;
+  border-radius:12px;
+}
+
+/* FOTO */
+.piloto img.foto{
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+  margin:auto;
+}
+
+/* QR */
+.qr{
+  text-align:center;
+  margin-top:15px;
+}
+.qr img{
+  width:130px;
+}
+
+/* TABLAS */
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:25px;
+}
+th,td{
+  padding:12px;
+  border-bottom:1px solid #ddd;
+}
+th{
+  background:#111;
+  color:#fff;
+}
 </style>
 </head>
 
 <body>
+
+<!-- ===============================
+     HEADER
+================================ -->
 <header>
   <h1 id="nombrePiloto">Piloto</h1>
   <p id="categoriaPiloto"></p>
 </header>
 
+<!-- ===============================
+     CONTENIDO
+================================ -->
 <section>
-  <div class="grid">
-    <div class="card">
-      <img id="fotoPiloto" src="pilotos/default.jpg">
+
+  <!-- ===============================
+       DATOS PRINCIPALES
+  ================================ -->
+  <div class="piloto">
+
+    <!-- FOTO + QR -->
+    <div>
+      <img id="fotoPiloto" class="foto" alt="Foto del Piloto">
+
+      <div class="qr">
+        <img id="qrPiloto" alt="QR Ficha Piloto">
+        <p>Escanear ficha</p>
+      </div>
     </div>
-    <div class="card">
-      <h2>Datos del Piloto</h2>
-      <p><strong>Nombre:</strong> <span id="datoNombre"></span></p>
-      <p><strong>Categoría:</strong> <span id="datoCategoria"></span></p>
-      <p><strong>Total de Puntos:</strong> <span id="datoPuntos"></span></p>
+
+    <!-- RESUMEN -->
+    <div>
+      <h2>Resumen Deportivo</h2>
+      <p><strong>Puntos Totales:</strong> <span id="totalPuntos">0</span></p>
+      <p><strong>Mejor Resultado:</strong> <span id="mejorResultado">-</span></p>
+      <p><strong>Cantidad de Fechas:</strong> <span id="cantidadFechas">0</span></p>
     </div>
+
   </div>
 
-  <div class="card">
-    <h2>Resultados por Fecha</h2>
-    <table>
-      <thead>
-        <tr><th>Fecha</th><th>Puesto</th><th>Puntos</th></tr>
-      </thead>
-      <tbody id="tablaResultados"></tbody>
-    </table>
-  </div>
+  <!-- ===============================
+       HISTORIAL POR FECHA
+  ================================ -->
+  <h2>Historial de Carreras</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Puesto</th>
+        <th>Puntos</th>
+      </tr>
+    </thead>
+    <tbody id="historial"></tbody>
+  </table>
 
-  <a class="btn" href="index.html">⬅ Volver al Campeonato</a>
 </section>
 
+<!-- ===============================
+     SCRIPT
+================================ -->
 <script>
-const params=new URLSearchParams(window.location.search);
-const piloto=params.get('piloto');
-const categoria=params.get('categoria');
-
+/* ===============================
+   1️⃣ GOOGLE SHEETS POR CATEGORÍA
+================================ */
 const CATEGORIAS={
   "PRE JUNIOR":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=0&single=true&output=csv",
   "JUNIOR":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=1173158505&single=true&output=csv",
@@ -71,37 +148,74 @@ const CATEGORIAS={
   "200 STD":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=660182728&single=true&output=csv"
 };
 
-if(!piloto || !categoria){
-  alert('Piloto no encontrado');
+/* ===============================
+   2️⃣ PARÁMETROS URL
+================================ */
+const params=new URLSearchParams(window.location.search);
+const piloto=params.get("piloto");
+const categoria=params.get("categoria");
+
+if(!piloto || !categoria || !CATEGORIAS[categoria]){
+  alert("Ficha inválida");
+  throw new Error("Parámetros incorrectos");
 }
 
-// Cargar datos
+/* ===============================
+   3️⃣ DATOS FIJOS
+================================ */
+document.getElementById("nombrePiloto").textContent=piloto;
+document.getElementById("categoriaPiloto").textContent=categoria;
+
+/* FOTO */
+const foto=document.getElementById("fotoPiloto");
+foto.src=`pilotos/${piloto.replaceAll(" ","_")}.jpg`;
+foto.onerror=()=>foto.src="pilotos/default.jpg";
+
+/* QR (LINK A ESTA FICHA) */
+const urlFicha=window.location.href;
+document.getElementById("qrPiloto").src=
+  `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(urlFicha)}`;
+
+/* ===============================
+   4️⃣ CARGA DE DATOS
+================================ */
 fetch(CATEGORIAS[categoria])
   .then(r=>r.text())
-  .then(text=>{
-    const filas=text.trim().split('\n').slice(1);
-    const datos=filas.map(f=>{
-      const c=f.split(',').map(v=>v.replace(/"/g,''));
-      return {fecha:c[0],piloto:c[1],puesto:c[2],puntos:+c[3]};
-    }).filter(d=>d.piloto===piloto);
+  .then(text=>procesarDatos(text));
 
-    document.getElementById('nombrePiloto').textContent=piloto;
-    document.getElementById('categoriaPiloto').textContent=categoria;
-    document.getElementById('datoNombre').textContent=piloto;
-    document.getElementById('datoCategoria').textContent=categoria;
+function procesarDatos(text){
+  const filas=text.trim().split("\n").slice(1);
+  const historial=document.getElementById("historial");
 
-    const total=datos.reduce((a,b)=>a+b.puntos,0);
-    document.getElementById('datoPuntos').textContent=total;
+  let total=0;
+  let mejor=null;
+  let fechas=0;
 
-    const img=document.getElementById('fotoPiloto');
-    img.src=`pilotos/${piloto.replaceAll(' ','_')}.jpg`;
-    img.onerror=()=>img.src='pilotos/default.jpg';
+  filas.forEach(f=>{
+    const c=f.split(",").map(v=>v.replace(/"/g,""));
+    if(c[1]!==piloto) return;
 
-    const tb=document.getElementById('tablaResultados');
-    datos.forEach(d=>{
-      tb.innerHTML+=`<tr><td>${d.fecha}</td><td>${d.puesto}</td><td>${d.puntos}</td></tr>`;
-    });
+    const fecha=c[0];
+    const puesto=+c[2];
+    const puntos=+c[3];
+
+    total+=puntos;
+    fechas++;
+    if(mejor===null || puesto<mejor) mejor=puesto;
+
+    historial.innerHTML+=`
+      <tr>
+        <td>${fecha}</td>
+        <td>${puesto}</td>
+        <td>${puntos}</td>
+      </tr>`;
   });
+
+  document.getElementById("totalPuntos").textContent=total;
+  document.getElementById("mejorResultado").textContent=mejor ?? "-";
+  document.getElementById("cantidadFechas").textContent=fechas;
+}
 </script>
+
 </body>
 </html>
