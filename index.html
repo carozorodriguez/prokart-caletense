@@ -251,14 +251,15 @@
 </footer>
 
 <script>
-// URLs CSV por categoría (una hoja por categoría)
+/* ===============================
+   CONFIGURACIÓN DE CATEGORÍAS
+================================ */
 const categorias = {
-  "PRE JUNIOR": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=0&single=true&output=tsv",
-  // agregar acá las demás categorías
-  "JUNIOR": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=1173158505&single=true&output=tsv"
-  "110 Cajero":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=796482582&single=true&output=tsv"
-  "200 Master":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=2021979125&single=true&output=tsv"
-  "200 Std":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=660182728&single=true&output=tsv"
+  "PRE JUNIOR": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=0&single=true&output=csv",
+  "JUNIOR": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=1173158505&single=true&output=csv",
+  "110 Cajeros": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=796482582&single=true&output=csv",
+  "200 Master": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=2021979125&single=true&output=csv",
+  "200 STD": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=660182728&single=true&output=csv"
 };
 
 let datos = [];
@@ -266,7 +267,9 @@ let datos = [];
 const categoriaSelect = document.getElementById('categoriaSelect');
 const fechaSelect = document.getElementById('fechaSelect');
 
-// Poblar selector de categorías
+/* ===============================
+   SELECT DE CATEGORÍAS
+================================ */
 Object.keys(categorias).forEach(cat => {
   const opt = document.createElement('option');
   opt.value = cat;
@@ -277,36 +280,49 @@ Object.keys(categorias).forEach(cat => {
 categoriaSelect.addEventListener('change', cargarCategoria);
 fechaSelect.addEventListener('change', filtrarFecha);
 
-// Carga inicial
+/* ===============================
+   CARGA INICIAL
+================================ */
 cargarCategoria();
 
+/* ===============================
+   FUNCIONES
+================================ */
 function cargarCategoria() {
-  const url = categorias[categoriaSelect.value];
+  const categoria = categoriaSelect.value;
+  const url = categorias[categoria];
   if (!url) return;
 
   fetch(url)
-    .then(r => r.text())
+    .then(r => {
+      if (!r.ok) throw new Error('No se pudo acceder al CSV');
+      return r.text();
+    })
     .then(text => {
-      const filas = text.trim().split("\n").slice(1); // elimina encabezado
-      datos = filas.map(fila => {
-        const c = fila.split(",");
+      const filas = text.replace(/\r/g,'').trim().split('\n');
+      datos = filas.slice(1).map(f => {
+        const c = f.split(',').map(v => v.replace(/^"|"$/g,'').trim());
         return {
           fecha: c[0],
           piloto: c[1],
-          puesto: Number(c[2]),
-          puntos: Number(c[3])
+          puesto: Number(c[2]) || 0,
+          puntos: Number(c[3]) || 0
         };
-      });
+      }).filter(d => d.piloto);
+
       cargarFechas();
       cargarGeneral();
+      cargarPilotosRankeados(categoria);
     })
-    .catch(err => console.error('Error cargando CSV:', err));
+    .catch(err => {
+      console.error(err);
+      alert('Error cargando datos de la categoría');
+    });
 }
 
 function cargarFechas() {
   fechaSelect.innerHTML = '';
-  const fechas = [...new Set(datos.map(d => d.fecha))];
-  fechas.forEach(f => {
+  [...new Set(datos.map(d => d.fecha))].forEach(f => {
     const opt = document.createElement('option');
     opt.value = f;
     opt.textContent = f;
@@ -316,14 +332,15 @@ function cargarFechas() {
 }
 
 function filtrarFecha() {
-  const fecha = fechaSelect.value;
   const body = document.querySelector('#tablaResultados tbody');
   body.innerHTML = '';
-  datos.filter(d => d.fecha === fecha).forEach(d => {
-    const row = document.createElement('tr');
-    row.innerHTML = `<td>${d.puesto}</td><td>${d.piloto}</td><td>${d.puntos}</td>`;
-    body.appendChild(row);
-  });
+  datos
+    .filter(d => d.fecha === fechaSelect.value)
+    .forEach(d => {
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>${d.puesto}</td><td>${d.piloto}</td><td>${d.puntos}</td>`;
+      body.appendChild(row);
+    });
 }
 
 function cargarGeneral() {
@@ -331,10 +348,8 @@ function cargarGeneral() {
   body.innerHTML = '';
   const mapa = {};
 
-  // Suma automática de puntos por piloto
   datos.forEach(d => {
-    if (!mapa[d.piloto]) mapa[d.piloto] = 0;
-    mapa[d.piloto] += d.puntos;
+    mapa[d.piloto] = (mapa[d.piloto] || 0) + d.puntos;
   });
 
   Object.entries(mapa)
@@ -345,7 +360,42 @@ function cargarGeneral() {
       body.appendChild(row);
     });
 }
+
+/* ===============================
+   PILOTOS RANKEADOS EN CATEGORÍAS
+================================ */
+function cargarPilotosRankeados(categoria) {
+  const card = [...document.querySelectorAll('#categorias .card')]
+    .find(c => c.querySelector('h3')?.textContent === categoria);
+
+  if (!card) return;
+
+  const grid = card.querySelector('.grid');
+  if (!grid) return;
+
+  grid.innerHTML = '';
+
+  const ranking = {};
+  datos.forEach(d => {
+    ranking[d.piloto] = (ranking[d.piloto] || 0) + d.puntos;
+  });
+
+  Object.entries(ranking)
+    .sort((a, b) => b[1] - a[1])
+    .forEach(([piloto, puntos], index) => {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `
+        <img src="pilotos/${piloto.replaceAll(' ','_')}.jpg"
+             onerror="this.src='pilotos/default.jpg'"
+             style="width:100%;border-radius:8px;">
+        <p><strong>#${index + 1} ${piloto}</strong><br>${puntos} pts</p>
+        <a href="piloto.html?piloto=${encodeURIComponent(piloto)}&categoria=${encodeURIComponent(categoria)}">
+          Ver ficha
+        </a>
+      `;
+      grid.appendChild(div);
+    });
+}
 </script>
 
-</body>
-</html>
