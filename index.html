@@ -16,25 +16,58 @@
      ESTILOS GENERALES
 ================================ -->
 <style>
-:root { --rojo:#e10600; --negro:#111; --gris:#f4f4f4; }
-*{box-sizing:border-box}
-body{margin:0;font-family:'Oswald',Arial;background:var(--gris)}
-header{background:#000;color:#fff;text-align:center;padding:60px 20px}
-header img{max-width:320px;width:90%}
-nav{position:sticky;top:0;background:var(--negro);display:flex;justify-content:center;gap:25px;padding:15px;z-index:10}
-nav a{color:#fff;text-decoration:none}
-nav a:hover{color:var(--rojo)}
-section{max-width:1100px;margin:auto;padding:60px 20px}
-h2{border-left:6px solid var(--rojo);padding-left:15px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
-.card{background:#fff;padding:25px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.1)}
-.btn{display:inline-block;margin:10px 0 20px;padding:12px 18px;background:var(--rojo);color:#fff;text-decoration:none;border-radius:6px}
-.btn:hover{opacity:.85}
-table{width:100%;border-collapse:collapse;margin-top:20px}
-th,td{padding:12px;border-bottom:1px solid #ddd}
-th{background:var(--negro);color:#fff}
-footer{background:var(--negro);color:#fff;text-align:center;padding:30px;margin-top:60px}
+  /* estilos que ya tenés arriba */
+
+  table{width:100%;border-collapse:collapse;margin-top:20px}
+  th,td{padding:12px;border-bottom:1px solid #ddd}
+  th{background:var(--negro);color:#fff}
+
+  /* ⬇️ PEGÁS ACÁ LO NUEVO */
+  /* ===============================
+     TABLA GENERAL - ESTILO DEPORTIVO
+  ================================ */
+  #tablaGeneral {
+    margin-top: 30px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  #tablaGeneral th {
+    text-align: center;
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
+  #tablaGeneral td {
+    text-align: center;
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+
+  #tablaGeneral td:nth-child(2) {
+    text-align: left;
+    padding-left: 20px;
+  }
+
+  #tablaGeneral tbody tr:nth-child(1) {
+    background: linear-gradient(90deg, #ffd70033, #fff);
+    font-weight: 700;
+  }
+
+  #tablaGeneral tbody tr:nth-child(2) {
+    background: linear-gradient(90deg, #c0c0c033, #fff);
+  }
+
+  #tablaGeneral tbody tr:nth-child(3) {
+    background: linear-gradient(90deg, #cd7f3233, #fff);
+  }
+
+  #tablaGeneral tbody tr:hover {
+    background: #f1f1f1;
+  }
 </style>
+
 </head>
 
 <body>
