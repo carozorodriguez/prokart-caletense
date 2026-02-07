@@ -197,6 +197,18 @@ const m={};datos.forEach(d=>m[d.piloto]=(m[d.piloto]||0)+d.puntos);
 Object.entries(m).sort((a,b)=>b[1]-a[1]).forEach((p,i)=>tb.innerHTML+=`<tr><td>${i+1}</td><td>${p[0]}</td><td>${p[1]}</td></tr>`);
 }
 </script>
+<!-- ===============================
+     FOOTER + SPONSORS
+================================ -->
+<footer class="footer">
+  <div class="sponsors">
+    <img src="sponsors/vintage.png" alt="Sponsor 1">
+    <img src="sponsors/sponsor2.png" alt="Sponsor 2">
+    <img src="sponsors/sponsor3.png" alt="Sponsor 3">
+    <img src="sponsors/sponsor4.png" alt="Sponsor 4">
+  </div>
+  <p>© 2026 PROKART CALETENSE</p>
+</footer>
 
 </body>
 </html>
