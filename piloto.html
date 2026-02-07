@@ -5,158 +5,160 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ficha del Piloto | PROKART CALETENSE</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- FUENTES -->
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-:root { --rojo:#e10600; --negro:#111; --gris:#f4f4f4; }
+:root{--rojo:#e10600;--negro:#111;--gris:#f4f4f4}
 body{margin:0;font-family:'Oswald',Arial;background:var(--gris)}
 header{background:#000;color:#fff;text-align:center;padding:40px 20px}
 section{max-width:900px;margin:auto;padding:40px 20px}
-.card{background:#fff;padding:25px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.1)}
-.grid{display:grid;grid-template-columns:1fr 2fr;gap:20px}
-
+.card{background:#fff;padding:30px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
 .btn{
   display:inline-block;
-  padding:10px 16px;
+  margin-top:15px;
+  padding:12px 18px;
   background:var(--rojo);
   color:#fff;
   text-decoration:none;
   border-radius:6px;
-  margin-bottom:20px;
+}
+.btn:hover{opacity:.85}
+
+.piloto-header{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:30px;
+  align-items:center;
+}
+.piloto-header img{
+  width:100%;
+  border-radius:12px;
+  border:4px solid var(--negro);
 }
 
+h1{margin:0}
+h3{margin-top:30px;border-left:5px solid var(--rojo);padding-left:12px}
+
 table{width:100%;border-collapse:collapse;margin-top:20px}
-th,td{padding:10px;border-bottom:1px solid #ddd}
+th,td{padding:12px;border-bottom:1px solid #ddd;text-align:center}
 th{background:var(--negro);color:#fff}
+
+.volver{
+  margin-top:30px;
+  text-align:center;
+}
 </style>
 </head>
 
 <body>
 
+<!-- ===============================
+     HEADER
+================================ -->
 <header>
   <h1>Ficha del Piloto</h1>
 </header>
 
 <section>
 
+<div class="card">
+
+  <!-- ===============================
+       DATOS DEL PILOTO
+  ================================ -->
+  <div class="piloto-header">
+    <img id="fotoPiloto" src="" alt="Foto del piloto">
+    <div>
+      <h1 id="nombrePiloto"></h1>
+      <p><strong>Categoría:</strong> <span id="categoriaPiloto"></span></p>
+    </div>
+  </div>
+
+  <!-- ===============================
+       HISTORIAL POR FECHAS
+  ================================ -->
+  <h3>Historial de Carreras</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Puesto</th>
+        <th>Puntos</th>
+      </tr>
+    </thead>
+    <tbody id="tablaHistorial"></tbody>
+  </table>
+
   <!-- ===============================
        BOTÓN VOLVER
   ================================ -->
-  <a class="btn" href="javascript:history.back()">← Volver</a>
-
-  <div class="card">
-    <div class="grid">
-
-      <!-- ===============================
-           FOTO DEL PILOTO
-      ================================ -->
-      <div>
-        <img id="fotoPiloto"
-             src=""
-             alt="Foto del piloto"
-             style="width:100%;border-radius:10px"
-             onerror="this.src='pilotos/default.jpg'">
-      </div>
-
-      <!-- ===============================
-           DATOS PRINCIPALES
-      ================================ -->
-      <div>
-        <h2 id="nombrePiloto"></h2>
-        <p><strong>Categoría:</strong> <span id="categoria"></span></p>
-        <p><strong>Total de puntos:</strong> <span id="totalPuntos">0</span></p>
-        <p><strong>Mejor puesto:</strong> <span id="mejorPuesto">-</span></p>
-        <p><strong>Fechas disputadas:</strong> <span id="fechasCorridas">0</span></p>
-
-        <!-- QR -->
-        <img id="qrPiloto" style="margin-top:15px;width:120px">
-      </div>
-
-    </div>
-
-    <!-- ===============================
-         HISTORIAL
-    ================================ -->
-    <h3>Historial por Fecha</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>Puesto</th>
-          <th>Puntos</th>
-        </tr>
-      </thead>
-      <tbody id="tablaHistorial"></tbody>
-    </table>
-
+  <div class="volver">
+    <a class="btn" href="index.html">⬅ Volver al Campeonato</a>
   </div>
+
+</div>
+
 </section>
 
 <script>
 /* ===============================
-   OBTENER PARÁMETROS URL
+   LEER PARÁMETROS URL
 ================================ */
 const params = new URLSearchParams(window.location.search);
 const piloto = params.get('piloto');
 const categoria = params.get('categoria');
 
 /* ===============================
-   ELEMENTOS DOM
+   MOSTRAR DATOS BÁSICOS
 ================================ */
 document.getElementById('nombrePiloto').textContent = piloto;
-document.getElementById('categoria').textContent = categoria;
+document.getElementById('categoriaPiloto').textContent = categoria;
 
 /* ===============================
-   FOTO DEL PILOTO
+   FOTO DEL PILOTO (FIX REAL)
 ================================ */
-document.getElementById('fotoPiloto').src =
-  'pilotos/' + piloto.replaceAll(' ', '_') + '.jpg';
-
-/* ===============================
-   QR DEL PILOTO
-================================ */
-document.getElementById('qrPiloto').src =
-  `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}`;
-
-/* ===============================
-   SHEETS POR CATEGORÍA
-================================ */
-const SHEETS = {
-  "PRE JUNIOR":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=0&single=true&output=csv",
-  "JUNIOR":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=1173158505&single=true&output=csv",
-  "110 Cajeros":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=796482582&single=true&output=csv",
-  "200 Master":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=2021979125&single=true&output=csv",
-  "200 STD":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=660182728&single=true&output=csv"
+const foto = document.getElementById('fotoPiloto');
+foto.src = `pilotos/${piloto.replaceAll(' ','_')}.jpg`;
+foto.onerror = () => {
+  foto.src = 'pilotos/default.jpg';
 };
 
 /* ===============================
-   CARGA DATOS DEL PILOTO
+   GOOGLE SHEETS
+================================ */
+const SHEETS = {
+  "PRE JUNIOR":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=0&single=true&output=tsv",
+  "JUNIOR":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=1173158505&single=true&output=tsv",
+  "110 Cajeros":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=796482582&single=true&output=tsv",
+  "200 Master":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=2021979125&single=true&output=tsv",
+  "200 STD":"https://docs.google.com/spreadsheets/d/e/2PACX-1vQFypnuhKrIq3bwVhehER3JFHbPukGhNGqrAqC2avomKgLPdu6C069biQFU5lAcJ3_6kt7Jntl4dre0/pub?gid=660182728&single=true&output=tsv"
+};
+
+/* ===============================
+   CARGAR HISTORIAL
 ================================ */
 fetch(SHEETS[categoria])
   .then(r=>r.text())
   .then(text=>{
     const filas=text.trim().split('\n').slice(1);
-    const datos=filas.map(f=>{
-      const c=f.split(',').map(v=>v.replace(/"/g,''));
-      return {fecha:c[0],piloto:c[1],puesto:+c[2],puntos:+c[3]};
-    }).filter(d=>d.piloto===piloto);
-
     const tbody=document.getElementById('tablaHistorial');
-    let total=0, mejor=99;
 
-    datos.forEach(d=>{
-      total+=d.puntos;
-      if(d.puesto>0 && d.puesto<mejor) mejor=d.puesto;
-      tbody.innerHTML+=`<tr><td>${d.fecha}</td><td>${d.puesto}</td><td>${d.puntos}</td></tr>`;
+    filas.forEach(f=>{
+      const c=f.split('\t');
+      if(c[1]===piloto){
+        tbody.innerHTML+=`
+          <tr>
+            <td>${c[0]}</td>
+            <td>${c[2]}</td>
+            <td>${c[3]}</td>
+          </tr>`;
+      }
     });
-
-    document.getElementById('totalPuntos').textContent=total;
-    document.getElementById('mejorPuesto').textContent=mejor===99?'-':mejor;
-    document.getElementById('fechasCorridas').textContent=datos.length;
   });
 </script>
 
 </body>
 </html>
+
